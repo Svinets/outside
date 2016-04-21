@@ -10,7 +10,8 @@
 
     <div id="box">
       <form id="prompt" action="javascript:void(0);">
-        Week Weather Forecast<br><br><br><br>
+        Week Weather Forecast<br><br>
+        <span id="error">&nbsp;</span><br>
         <input type="text" id="city" placeholder="Search for a city" autofocus="autofocus"></input>&nbsp;
         <input type="image" src="imgs/mag.png" alt="submit" id="mag" onclick="forecastLoc(document.getElementById('city').value)"></input><br><br>
         <button type="button" id="geo">Check weather for current location</button>
