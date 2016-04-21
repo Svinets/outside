@@ -30,7 +30,12 @@ input:focus, button:focus {
   text-align: center;
   font-size: 32px;
   z-index: 1;
-  line-height: 20px;
+  line-height: 24px;
+}
+
+#error {
+  padding-right: 60px;
+  font-size: 20px;
 }
 
 #prompt {
