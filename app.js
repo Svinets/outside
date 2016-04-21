@@ -76,6 +76,8 @@ function tempFade(temp, id) {
 // fires after the location info is passed to the api
 function update(data) {
   
+  if (data.cod === "404") { edit("error", "Location not found, search again"); }
+  
   function doc(id) { return document.getElementById(id); }
   // loop passes each day through the functions
   for (var i = 0; i < 7; i++) { 
