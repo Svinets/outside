@@ -42,6 +42,7 @@ function edit(id, info) { document.getElementById(id).innerHTML = info; }
 
 function setDay(id, add) { document.getElementById(id).innerHTML = week[new Date().getDay() + add]; }
 
+// allows divs to be rearranged on the page in the case of overlapping (doesn't work on mobile)
 function click(div) { obj = div; divX = posX - obj.offsetLeft; divY = posY - obj.offsetTop; }
 
 function drag(div) {
@@ -50,12 +51,12 @@ function drag(div) {
   if (obj !== null) { obj.style.left = (posX - divX) + 'px'; obj.style.top = (posY - divY) + 'px'; }
 }
 
-// tempFade provides visual appeal as opposed to a static page
+// tempFade gives visual appeal to the page
 function tempFade(temp, id) {
   var shape = document.getElementById(id);
   
   // provides color recognition for temperature besides plain text
-  // each color represents a temperature in 10F degree increments
+  // each color represents a 10F degree increment
   for (var i = 1; i < hex.length; i++) {
     if (temp > i * 10) { shape.style.borderColor = hex[i]; }
     else if (temp <= 10) { shape.style.borderColor = hex[0]; }
@@ -64,7 +65,7 @@ function tempFade(temp, id) {
   document.getElementById(id).style.backgroundColor = "rgba(0, 0, 0, 0.5)";
   for (var i = 0; i < mid.length; i++) { document.getElementById(mid[i]).style.borderColor = "#000000"; }
   for (var i = 1; i < mid.length; i++) { document.getElementById(mid[i]).style.backgroundColor = "#000000"; }
-
+  
   (function fade() {
     shape.style.opacity =+ shape.style.opacity + 0.03;
     if (shape.style.opacity < 1) { requestAnimationFrame(fade); }
@@ -72,10 +73,11 @@ function tempFade(temp, id) {
 }
 
 // update passes api information through functions to the display page
+// fires after the location info is passed to the api
 function update(data) {
   
   function doc(id) { return document.getElementById(id); }
-  
+  // loop passes each day through the functions
   for (var i = 0; i < 7; i++) { 
     if (i === 0) { edit("icon" + i, '<img src="imgs/' + data.list[i].weather[0].icon + '.png" height="160">'); } 
     else { edit("icon" + i, '<img src="imgs/' + data.list[i].weather[0].icon + '.png" height="90">'); }
@@ -97,7 +99,7 @@ function update(data) {
   edit("gust", '<img src="imgs/wnd.png" height="50">');
   doc("box").style.pointerEvents = "none";
   doc("box").style.opacity = 1;
-  
+  // fades the search box into the weather display
   (function fadeOut() {
     if ((doc("box").style.opacity -= 0.05) < 0) { doc("box").style.display = "none"; }
     else { requestAnimationFrame(fadeOut); }
@@ -105,14 +107,13 @@ function update(data) {
 }
 
 function locate(pos) { var crd = pos.coords; forecastCoord(crd.latitude, crd.longitude); } 
-
+// error message in the case of geolocation fail
 function error() { 
   edit("geo", "Geolocation failed. Search by city"); 
   document.getElementById("geo").setAttribute("style", "background-color: transparent; color: white");
 }
 
 window.onload = function() {
-  
+  // searches for weather data via coordinates
   document.getElementById("geo").onclick = function() { navigator.geolocation.getCurrentPosition(locate, error) };
-
 }
