@@ -75,11 +75,6 @@ function tempFade(temp, id) {
 function update(data) {
   
   function doc(id) { return document.getElementById(id); }
-
-  (function fadeOut() {
-    if ((doc("box").style.opacity -= 0.05) < 0) { doc("box").style.display = "none"; }
-    else { requestAnimationFrame(fadeOut); }
-  })();
   
   for (var i = 0; i < 7; i++) { 
     if (i === 0) { edit("icon" + i, '<img src="imgs/' + data.list[i].weather[0].icon + '.png" height="160">'); } 
@@ -103,6 +98,10 @@ function update(data) {
   doc("box").style.pointerEvents = "none";
   doc("box").style.opacity = 1;
   
+  (function fadeOut() {
+    if ((doc("box").style.opacity -= 0.05) < 0) { doc("box").style.display = "none"; }
+    else { requestAnimationFrame(fadeOut); }
+  })();
 }
 
 function locate(pos) { var crd = pos.coords; forecastCoord(crd.latitude, crd.longitude); } 
