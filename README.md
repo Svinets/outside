@@ -1,3 +1,3 @@
-# Weather app
+# Activity app
 
-Displays weather for the next week based on a location search through the OpenWeatherMap API.
+Displays activities for a provided location, or the weather for the next week.
