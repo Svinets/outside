@@ -56,22 +56,14 @@ input:focus, button:focus {
   vertical-align: middle;
 }
 
-#geo, #city {
+#city {
   font-family: "Montserrat";
   font-size: 22px;
-  width: 390px;
+  width: 330px;
   height: 40px;
   border-width: 0px;
   border-radius: 5px;
   background-color: #FFFFFF;
-}
-
-#city {
-  width: 330px;
-}
-
-#geo:active {
-  background-color: #C0C0C0;
 }
 
 .today {
