@@ -190,7 +190,7 @@ function showtimes(lat, lng) {
         });
       }
     }
-  }, 2000);
+  }, 3000);
 }
 
 // displays info about individual movies
