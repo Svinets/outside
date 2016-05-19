@@ -51,17 +51,27 @@ function forecastLoc(city) {
     "&cnt=7&units=imperial" +
     "&appid=07a96fec5d332a2798fa83aba696d9f2";
   
-  sendRequest(url, weather, weatherData);
-}
+  sendRequest(url, function(data) {
+    if (data.cod === "404") {
+      edit("error", "Location not found, search again");
+    } else {
+      fadeOut("box");
+      fadeIn("back");
+      locale.push(data.city.name, " " + data.city.country);
+      edit("refresh", '<span id="refresh" onClick="window.location.reload()">Search Again?</span>');
+      edit("humidity", data.list[0].humidity + "%");
+      edit("wind", Math.round(data.list[0].speed * 10) / 10);
+      edit("loc", data.city.name + ",&nbsp;");
+      edit("country", data.city.country);
+      edit("drop", '<img src="imgs/hmd.png" height="50">');
+      edit("gust", '<img src="imgs/wnd.png" height="50">');
+      doc("box").style.pointerEvents = "none";
+      doc("box").style.opacity = 1;
+      addDay(0, data);
 
-function forecastCoord(lat, lon) {
-  var url = "http://api.openweathermap.org/data/2.5/forecast/daily?" +
-    "lat=" + lat +
-    "&lon=" + lon +
-    "&cnt=7&units=imperial" +
-    "&appid=07a96fec5d332a2798fa83aba696d9f2";
-  
-  sendRequest(url, weather, weatherData);
+      choices.forEach(fadeIn);
+    }
+  }, weatherData);
 }
 
 function cityToCoord(type, radius, movie) {
@@ -77,28 +87,6 @@ function cityToCoord(type, radius, movie) {
     locale.push(data[0].lat, data[0].lon);
     createMap(Number(locale[2]), Number(locale[3]));
   });
-}
-
-// passes weather info to the main display
-function weather(obj) {
-  if (obj.cod === "404") {
-    edit("error", "Location not found, search again");
-  }
-
-  fadeIn("back");
-  locale.push(obj.city.name, " " + obj.city.country);
-  edit("refresh", '<span id="refresh" onClick="window.location.reload()">Search Again?</span>');
-  edit("humidity", obj.list[0].humidity + "%");
-  edit("wind", Math.round(obj.list[0].speed * 10) / 10);
-  edit("loc", obj.city.name + ",&nbsp;");
-  edit("country", obj.city.country);
-  edit("drop", '<img src="imgs/hmd.png" height="50">');
-  edit("gust", '<img src="imgs/wnd.png" height="50">');
-  doc("box").style.pointerEvents = "none";
-  doc("box").style.opacity = 1;
-  addDay(0, obj);
-
-  choices.forEach(fadeIn);
 }
 
 // uses google places to fetch a list of locations
@@ -365,29 +353,13 @@ window.onload = function() {
       choices.forEach(fadeOut);
     });
   });
-  // searches for current location via geolocation
-  doc("geo").addEventListener("click", function() {
-
-    navigator.geolocation.getCurrentPosition(function(pos) {
-      var crd = pos.coords;
-      fadeOut("box");
-
-      setTimeout(function() {
-        forecastCoord(crd.latitude, crd.longitude);
-      }, 300);
-    }, function() {
-      edit("geo", "Geolocation failed."); 
-      document.getElementById("geo").setAttribute("style", "background-color: transparent; color: white");
-    });
-  });
   // searches for provided city
   doc("mag").addEventListener("click", function() {
-    fadeOut("box");
 
     setTimeout(function() {
       Number(doc("city").value).toString().length === 5
-      ? forecastZip(doc("city").value)
-      : forecastLoc(doc("city").value);
+        ? forecastZip(doc("city").value)
+        : forecastLoc(doc("city").value);
     }, 300);
   });
 
