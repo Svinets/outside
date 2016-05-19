@@ -4,34 +4,35 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     <title>Weather</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEe16vB_ubDz7tbXPJCRXQpbg4yscbdrQ"></script>
     <script type="text/javascript" src="app.js"></script>
   </head>
   <body>
 
     <div id="box">
-      <form id="prompt" action="javascript:void(0);">
-        Week Weather Forecast<br><br>
+      <form class="prompt" action="javascript:void(0);">
+        Where are you going?<br><br>
         <span id="error">&nbsp;</span><br>
-        <input type="text" id="city" placeholder="Search for a city" autofocus="autofocus"></input>&nbsp;
-        <input type="image" src="imgs/mag.png" alt="submit" id="mag" onclick="forecastLoc(document.getElementById('city').value)"></input><br><br>
-        <button type="button" id="geo">Check weather for current location</button>
+        <input type="text" id="city" placeholder="&nbsp;Search for a city or zip." autofocus="autofocus"></input>&nbsp;
+        <input type="image" src="imgs/mag.png" alt="submit" id="mag"></input><br><br>
+        <button type="button" id="geo">Staying Local</button>
       </span>
     </div>
 
     <div id="main" class="today">
       <div id="day0" class="today"></div>
-      <div class="info">
+      <div class="weekday">
         <span id="date0"></span><br>
         <span id="icon0"></span><br>
         <span id="loc"></span><span id="country"></span><br>
         <span id="max0"></span><span id="min0"></span>
-        <div id="left" class="today">
+        <div id="mainLeft" class="today">
           <div id="hmd">
             <span id="drop"></span><br>
             <span id="humidity"></span>
           </div>
         </div>
-        <div id="right" class="today">
+        <div id="mainRight" class="today">
           <div id="wnd">
             <span id="gust"></span><br>
             <span id="wind"></span>
@@ -40,50 +41,77 @@
       </div>
     </div>
 
-    <div id="day1" class="week">
-      <div class="weekText">
+    <div id="forecast" class="circle">
+      <span class="prompt">Check Week Forecast</span>
+    </div>
+    <div id="exercise" class="circle">
+      <span class="prompt">Feeling<br>Energized!</span>
+    </div>
+    <div id="restaurant" class="circle">
+      <span class="prompt">Sober or
+      <br>Hungry?</span>
+    </div>
+    <div id="movie" class="circle">
+      <span class="prompt">Feeling<br>Bored...</span>
+    </div>
+
+    <div id="day1" class="circle">
+      <div class="weekday">
         <span id="date1"></span><br>
         <span id="icon1"></span><br>
         <span id="max1"></span><span id="min1"></span>
       </div>
     </div>
-    <div id="day2" class="week">
-      <div class="weekText">
+    <div id="day2" class="circle">
+      <div class="weekday">
         <span id="date2"></span><br>
         <span id="icon2"></span><br>
         <span id="max2"></span><span id="min2"></span>
       </div>
     </div>
-    <div id="day3" class="week">
-      <div class="weekText">
+    <div id="day3" class="circle">
+      <div class="weekday">
         <span id="date3"></span><br>
         <span id="icon3"></span><br>
         <span id="max3"></span><span id="min3"></span>
       </div>
     </div>
-    <div id="day4" class="week">
-      <div class="weekText">
+    <div id="day4" class="circle">
+      <div class="weekday">
         <span id="date4"></span><br>
         <span id="icon4"></span><br>
         <span id="max4"></span><span id="min4"></span>
       </div>
     </div>
-    <div id="day5" class="week">
-      <div class="weekText">
+    <div id="day5" class="circle">
+      <div class="weekday">
         <span id="date5"></span><br>
         <span id="icon5"></span><br>
         <span id="max5"></span><span id="min5"></span>
       </div>
     </div>
-    <div id="day6" class="week">
-      <div class="weekText">
+    <div id="day6" class="circle">
+      <div class="weekday">
         <span id="date6"></span><br>
         <span id="icon6"></span><br>
         <span id="max6"></span><span id="min6"></span>
       </div>
     </div>
 
-    <span id="refresh"></span>
+    <div id="search">
+      <div id="searchLeft">
+        <span id="results"></span>
+        <span id="theater"></span>
+        &nbsp;<hr>
+        <span id="stores"></span>
+        <span id="showtimes"></span>
+      </div>
+      <div id="searchRight"></div>
+    </div>
+
+    <div id="back">
+      <span id="refresh"></span>
+    </div>
 
   </body>
 </html>
